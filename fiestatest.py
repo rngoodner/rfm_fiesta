@@ -11,7 +11,7 @@ class FiestaTest(rfm.RegressionTest):
 	sourcesdir = '../fiesta/'
 	sourcepath = '.'
 	executable = './build/fiesta'
-	executable_opts = [f'{LAUNCHDIR}/3D_Expansion_small_gpu-type/fiesta.lua', '--kokkos-num-devices=1']
+	executable_opts = [f'{LAUNCHDIR}/3D_Expansion_small_gpu-aware/fiesta.lua', '--kokkos-num-devices=1']
 	build_system = 'CMake'
 	num_tasks = 4
 	num_tasks_per_node = 1
@@ -60,4 +60,24 @@ class FiestaTest(rfm.RegressionTest):
 		# tests for lassen must be run from an interactive session with 4 nodes
 		if system == 'lassen':
 			self.executable = 'lrun'
-			self.executable_opts = ['-N4', '-T1', './build/fiesta', f'{LAUNCHDIR}/3D_Expansion_small_gpu-type/fiesta.lua', '--kokkos-num-devices=1']
+			self.executable_opts = ['-N4', '-T1', './build/fiesta', f'{LAUNCHDIR}/3D_Expansion_small_gpu-aware/fiesta.lua', '--kokkos-num-devices=1']
+	
+	@run_before('performance')
+	def set_perf_patterns(self):
+		self.perf_patterns = {
+			'Total Time': sn.extractsingle(r'Total Time:\s+(\S+).*', self.stdout, 1, float),
+			'Setup Time': sn.extractsingle(r'\s+Setup Time:\s+(\S+).*', self.stdout, 1, float),
+			'Initial Condition Generation': sn.extractsingle(r'\s+Initial Condition Generation:\s+(\S+).*', self.stdout, 1, float),
+			'Grid Generation': sn.extractsingle(r'\s+Grid Generation:\s+(\S+).*', self.stdout, 1, float),
+			'Initial Condition WriteTime': sn.extractsingle(r'\s+Initial Condition WriteTime:\s+(\S+).*', self.stdout, 1, float),
+			'Simulation Time': sn.extractsingle(r'\s+Simulation Time:\s+(\S+).*', self.stdout, 1, float),
+			'Flux Calculation': sn.extractsingle(r'\s+Flux Calculation:\s+(\S+).*', self.stdout, 1, float),
+			'Secondary Variable Calculation': sn.extractsingle(r'\s+Secondary Variable Calculation:\s+(\S+).*', self.stdout, 1, float),
+			'Solution Write Time': sn.extractsingle(r'\s+Solution Write Time:\s+(\S+).*', self.stdout, 1, float),
+			'Runge Stage Update': sn.extractsingle(r'\s+Runge Stage Update:\s+(\S+).*', self.stdout, 1, float),
+			'Pressure Gradient Calculation': sn.extractsingle(r'\s+Pressure Gradient Calculation:\s+(\S+).*', self.stdout, 1, float),
+			'Status Check': sn.extractsingle(r'\s+Status Check:\s+(\S+).*', self.stdout, 1, float),
+			'Boundary Conditions': sn.extractsingle(r'\s+Boundary Conditions:\s+(\S+).*', self.stdout, 1, float),
+			'Halo Exchanges': sn.extractsingle(r'\s+Halo Exchanges:\s+(\S+).*', self.stdout, 1, float),
+			'Restart Write Time': sn.extractsingle(r'\s+Restart Write Time:\s+(\S+).*', self.stdout, 1, float)
+		}

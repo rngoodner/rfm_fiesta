@@ -1,4 +1,4 @@
-mpi = "gpu-type"
+mpi = "gpu-aware"
 --
 -- 3D Ideal Expansion
 
