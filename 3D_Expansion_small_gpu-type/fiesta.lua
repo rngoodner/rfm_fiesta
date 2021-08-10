@@ -6,7 +6,7 @@ title = "3D Idealized Expansion"
 
 --Output Options
 --pathName = "/users/beromer/scratch/3D_Test"  --Path where hdf, xmf and vtk solution files will be written
-write_freq = 200                     --Solution Write Interval
+write_freq = 50                       --Solution Write Interval
 stat_freq = 5
 
 --Restart Options
@@ -28,7 +28,7 @@ grid="cartesian"
 buoyancy = 0
 
 --Time
-nt = 200                              --Time Step at which to end simulation
+nt = 50                               --Time Step at which to end simulation
 dt = 1e-7                             --Time Step Size [s]
 
 --User Parameters
@@ -50,7 +50,7 @@ dz = Lz/nk
 --MPI Processors
 procsx = 2
 procsy = 2
-procsz = 2
+procsz = 1
 
 --Boundary Conditions (0: Freeflow, 1: Reflective)
 bcXmin = 1

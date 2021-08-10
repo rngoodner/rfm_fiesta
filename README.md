@@ -7,4 +7,5 @@
 
 ## Supported systems
 
-- Lassen (must be run from an interactive session with 2 nodes)
+- Xena
+- Lassen (must be run from an interactive session with 4 nodes)

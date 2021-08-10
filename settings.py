@@ -14,6 +14,30 @@ site_configuration = {
                 }
             ]
         },
+        {
+            'name': 'xena',
+            'descr': 'unm carc xena',
+            'hostnames': ['xena'],
+            'modules_system': 'lmod',
+            'partitions': [
+                {
+                    'name': 'default',
+                    'scheduler': 'squeue',
+                    'launcher': 'mpirun',
+                    'environs': ['gnu'],
+                    'resources': [
+                       {
+                           'name': 'gpu',
+                           'options': ['--gres=gpu:{num_gpus_per_node}']
+                       },
+                       {
+                           'name': 'partition',
+                           'options': ['--partition={partition}']
+                       },
+                    ],
+                }
+            ]
+        },
     ],
     'environments': [
         {
@@ -59,4 +83,11 @@ site_configuration = {
             ]
         }
     ],
+	'schedulers' : [
+		{
+			'name': 'squeue',
+			'target_systems' : ['xena'],
+			'use_nodes_option': True
+		},
+	],
 }
