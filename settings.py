@@ -15,6 +15,20 @@ site_configuration = {
             ]
         },
         {
+            'name': 'alie',
+            'descr': 'ryan personal box',
+            'hostnames': ['alie'],
+            'modules_system': 'tmod4',
+            'partitions': [
+                {
+                    'name': 'default',
+                    'scheduler': 'local',
+                    'launcher': 'local',
+                    'environs': ['gnu'],
+                }
+            ]
+        },
+        {
             'name': 'xena',
             'descr': 'unm carc xena',
             'hostnames': ['xena'],
@@ -62,7 +76,7 @@ site_configuration = {
                     'level': 'debug',
                     'format': '[%(asctime)s] %(levelname)s: %(check_info)s: %(message)s',   # noqa: E501
                     'append': False
-                }
+                },
             ],
             'handlers_perflog': [
                 {
@@ -79,7 +93,17 @@ site_configuration = {
                         '%(check_perf_unit)s'
                     ),
                     'append': True
-                }
+                },
+                {
+                    'type': 'graylog',
+                    'address': '0.0.0.0:12201',
+                    'level': 'info',
+                    'format': '%(message)s',
+                    'extras': {
+                        'facility': 'reframe',
+                        'data-version': '1.1',
+                    }
+                },
             ]
         }
     ],

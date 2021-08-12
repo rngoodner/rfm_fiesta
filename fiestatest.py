@@ -6,16 +6,35 @@ LAUNCHDIR = os.getcwd()
 
 @rfm.simple_test
 class FiestaTest(rfm.RegressionTest):
-    valid_systems = ['lassen','xena']
+    valid_systems = ['alie']
     valid_prog_environs = ['gnu']
     sourcesdir = '../fiesta/'
     sourcepath = '.'
     executable = './build/fiesta'
     executable_opts = [f'{LAUNCHDIR}/3D_Expansion_small_gpu-aware/fiesta.lua', '--kokkos-num-devices=1']
     build_system = 'CMake'
-    num_tasks = 4
+    num_tasks = 1
     num_tasks_per_node = 1
-    time_limit = '0d0h15m0s'
+    time_limit = '0d0h30m0s'
+    reference = {
+        '*': {
+            'Total Time': (0, 0, 0, 's'),    
+            'Setup Time': (0, 0, 0, 's'),
+            'Initial Condition Generation': (0, 0, 0, 's'),
+            'Grid Generation': (0, 0, 0, 's'),
+            'Initial Condition WriteTime': (0, 0, 0, 's'),
+            'Simulation Time': (0, 0, 0, 's'),
+            'Flux Calculation': (0, 0, 0, 's'),
+            'Secondary Variable Calculation': (0, 0, 0, 's'),
+            'Solution Write Time': (0, 0, 0, 's'),
+            'Runge Stage Update': (0, 0, 0, 's'),
+            'Pressure Gradient Calculation': (0, 0, 0, 's'),
+            'Status Check': (0, 0, 0, 's'),
+            'Boundary Conditions': (0, 0, 0, 's'),
+            'Halo Exchanges': (0, 0, 0, 's'),
+            'Restart Write Time': (0, 0, 0, 's')
+        }
+    }
 
     @run_before('compile')
     def set_compiler_flags(self):
@@ -45,6 +64,10 @@ class FiestaTest(rfm.RegressionTest):
                 'cuda/11.2.0-w6mf',
                 'cmake/3.19.5-22ub',
                 'hdf5/1.10.7-pvyi'
+            ]
+        if system == 'alie':
+            self.modules = [
+                'mpi'
             ]
 
     @run_before('run')
