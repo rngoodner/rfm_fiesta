@@ -83,11 +83,11 @@ site_configuration = {
             ]
         }
     ],
-	'schedulers' : [
-		{
-			'name': 'squeue',
-			'target_systems' : ['xena'],
-			'use_nodes_option': True
-		},
-	],
+    'schedulers' : [
+        {
+            'name': 'squeue',
+            'target_systems' : ['xena'],
+            'use_nodes_option': True
+        },
+    ],
 }
