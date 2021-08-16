@@ -13,4 +13,6 @@
 ## Requirements
 
 - `spack install reframe`
+- `spack install py-pygelf`
 - `spack load reframe`
+- `spack load py-pygelf`
