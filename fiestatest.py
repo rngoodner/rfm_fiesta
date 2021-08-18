@@ -74,12 +74,16 @@ class FiestaTest(rfm.RegressionTest):
                 'gpu': {'num_gpus_per_node': '1'},
                 'partition': {'partition': 'singleGPU'}
             }
+        if system == 'lassen':
+            self.extra_resources = {
+                'queue': {'queue': 'pbatch'}
+            }
         
         # this is a bit of a hack to work around reframe not supporting lsf
         # tests for lassen must be run from an interactive session with 4 nodes
-        if system == 'lassen':
-            self.executable = 'lrun'
-            self.executable_opts = ['-N4', '-T1', './build/fiesta', f'{LAUNCHDIR}/3D_Expansion_small_gpu-aware/fiesta.lua', '--kokkos-num-devices=1']
+        # if system == 'lassen':
+        #     self.executable = 'lrun'
+        #     self.executable_opts = ['-N4', '-T1', './build/fiesta', f'{LAUNCHDIR}/3D_Expansion_small_gpu-aware/fiesta.lua', '--kokkos-num-devices=1']
     
     @run_before('performance')
     def set_perf_patterns(self):

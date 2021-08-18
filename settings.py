@@ -8,9 +8,15 @@ site_configuration = {
             'partitions': [
                 {
                     'name': 'default',
-                    'scheduler': 'local',
-                    'launcher': 'local',
+                    'scheduler': 'lsf',
+                    'launcher': 'lrun-gpu',
                     'environs': ['gnu'],
+                    'resources': [
+                       {
+                           'name': 'queue',
+                           'options': ['-q {queue}']
+                       },
+                    ],
                 }
             ]
         },
